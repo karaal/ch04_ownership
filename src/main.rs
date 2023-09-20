@@ -2,6 +2,7 @@ fn main() {
     scope_example();
     string_types();
     ownership();
+    move_example();
 }
 
 fn scope_example() {
@@ -27,4 +28,24 @@ fn ownership() {
     hw.push_str("World!");
 
     println!("{}", hw);
+}
+
+fn move_example() {
+    let x = 44;
+    let y = x; //integer are simple values, no move
+
+    println!("The x is: {}", x);
+    println!("The y is: {}", y);
+
+    let foo = String::from("foo");
+    let bar = foo; //move, foo is no longer valid pointer
+
+    //println!("{}", foo); //illegal: value of foo is moved
+    println!("{}", bar);
+
+    let baz = String::from("si vic pacem para bellum");
+    let baq = baz.clone();
+
+    println!("{}", baz); //legal: baz is cloned, not moved
+    println!("{}", baq);
 }
