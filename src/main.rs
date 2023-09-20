@@ -3,6 +3,7 @@ fn main() {
     string_types();
     ownership();
     move_example();
+    ovnership_and_functions();
 }
 
 fn scope_example() {
@@ -44,8 +45,26 @@ fn move_example() {
     println!("{}", bar);
 
     let baz = String::from("si vic pacem para bellum");
-    let baq = baz.clone();
+    let baq = baz.clone(); //heads up: cloning can be expensive!
 
     println!("{}", baz); //legal: baz is cloned, not moved
     println!("{}", baq);
 }
+
+fn ovnership_and_functions() {
+    let text = String::from("some text to be moved");
+    takes_ownership(text); //text's value is moved to the function
+    //println!("{}", text); //illegal: text's value is already moved
+
+    let num = 777;
+    makes_copy(num);
+    println!("Still available: {}", num);
+}
+
+fn takes_ownership(t: String) {
+    println!("{}", t);
+} //t is droped, the backing memory is freed.
+
+fn makes_copy(t: i32) {
+    println!("Copied value: {}", t);
+} //t goes out of scope
