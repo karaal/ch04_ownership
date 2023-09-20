@@ -4,6 +4,7 @@ fn main() {
     ownership();
     move_example();
     ovnership_and_functions();
+    moving_return_values();
 }
 
 fn scope_example() {
@@ -68,3 +69,29 @@ fn takes_ownership(t: String) {
 fn makes_copy(t: i32) {
     println!("Copied value: {}", t);
 } //t goes out of scope
+
+fn moving_return_values() {
+    let s1 = gives_ownership();
+    let s2 = String::from("Hello");
+    let s3 = takes_and_gives_back(s2); //s2 is moved
+    let (s4, len) = calculate_length(s3);
+
+    println!("{}", s1);
+    println!("{}, length: {}", s4, len);
+}
+
+fn gives_ownership() -> String {
+    let s = String::from("Transfered value!");
+
+    s
+}
+
+fn takes_and_gives_back(s: String) -> String {
+    s
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let len = s.len();
+
+    (s, len)
+}
