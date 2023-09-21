@@ -9,7 +9,7 @@ fn main() {
 
 fn scope_example() {
     //no hoisting: s is not valid here
-    let s: &str  = "Hello, world!"; //s is a string literal
+    let s: &str = "Hello, world!"; //s is a string literal
     println!("{}", s);
 } //end of scope, s is no longer valid
 
@@ -55,10 +55,10 @@ fn move_example() {
 fn ovnership_and_functions() {
     let text = String::from("some text to be moved");
     takes_ownership(text); //text's value is moved to the function
-    //println!("{}", text); //illegal: text's value is already moved
+                           //println!("{}", text); //illegal: text's value is already moved
 
     let num = 777;
-    makes_copy(num);
+    makes_copy(num); //copy of num is passed to fn
     println!("Still available: {}", num);
 }
 
@@ -83,13 +83,14 @@ fn moving_return_values() {
 fn gives_ownership() -> String {
     let s = String::from("Transfered value!");
 
-    s
+    s //s is returned to calling fn, so ownership is moved to that fn
 }
 
 fn takes_and_gives_back(s: String) -> String {
     s
 }
 
+// example of function which returns both result and value taken from calling function
 fn calculate_length(s: String) -> (String, usize) {
     let len = s.len();
 
